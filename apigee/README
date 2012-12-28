@@ -1,0 +1,4 @@
+Purpose:	This is an Apigee-specific module for puppet. It will tell puppet how 
+         	to think about the Apigee OPDK and related software. For general 
+					planet and site configuration, see the site module.
+Author:		Nija Mashruwala

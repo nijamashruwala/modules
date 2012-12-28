@@ -1,0 +1,35 @@
+# /etc/puppetlabs/puppet/modules/apigee/templates/apigee_init.erb
+
+APIGEE_BIN_DIR=/opt/apigee/bin
+
+case "$1" in
+start)
+	$APIGEE_BIN_DIR/all-start.sh
+;;
+status)
+   status_str=`$APIGEE_BIN_DIR/all-status.sh`
+   if [ "running" ~= $status_str ] ; then 
+     is_running=true
+   else is_running=false
+   echo "$status_str"
+   return is_running
+;;
+stop)
+   $APIGEE_BIN_DIR/all-stop.sh
+   java_pid=`pgrep java`
+   is_dead=`ps -elf|grep java|grep apigee`;
+   if [ is_dead ] ; then
+     echo "Killing java process $java_pid"
+   fi
+   killall -9 java
+;;
+
+restart)
+  	$0 stop
+  	$0 start
+;;
+
+*)
+        echo "Usage: $0 {status|start|stop|restart}"
+        exit 1
+esac

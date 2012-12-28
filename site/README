@@ -1,0 +1,5 @@
+Purpose: 	This is a site and planet module for puppet. It should have all the 
+					basic definitions for generic hosts, system-level functions, and 
+					logging and debug functionality. For Apigee specific information,	see
+					the apigee-$ROCKET_VERSION module. 
+Author: 	Nija Mashruwala
