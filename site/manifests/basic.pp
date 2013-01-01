@@ -5,9 +5,4 @@ class site::basic {
     include groups
     include users
   }
-  filebucket { main:
-    server => puppetmaster,
-    path   => false,
-    # The path => false line works around a known issue with the filebucket type.
-  }
 }
