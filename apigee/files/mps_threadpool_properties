@@ -1,0 +1,28 @@
+#
+# Copyright (c) 2010, Apigee Corporation.  All rights reserved.
+# Apigee(TM) and the Apigee logo are trademarks or
+# registered trademarks of Apigee Corp. or its subsidiaries.  All other
+# trademarks are the property of their respective owners.
+#
+
+# the number of threads to keep in the pool, even if they are idle.
+# if commented, defaults to 10
+core.pool.size=25
+
+# the maximum number of threads to allow in the pool.
+# if commented, defaults to 100
+maximum.pool.size=1000
+
+# the maximum number of threads to keep in the timer pool
+# for running scheduled tasks. Defaults to 10.
+timer.pool.size=25
+
+# the maximum number of tasks to keep in a queue before starting
+# more than core.pool.size threads. Defaults to 10.
+pool.queue.size=25
+
+# when the number of threads is greater than
+# the corePoolSize, this is the maximum time(milliseconds) that excess idle threads
+# will wait for new tasks before terminating.
+# if commented defaults to 60000 (60 seconds)
+keepalive.time=120000
