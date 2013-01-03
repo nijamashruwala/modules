@@ -4,5 +4,6 @@ class site::basic {
     #include motd
     include groups
     include users
+    include enable_scp
   }
 }
