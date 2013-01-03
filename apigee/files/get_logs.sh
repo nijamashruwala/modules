@@ -25,6 +25,11 @@ cp /var/log/apigee/message-processor/logs/system.log .
 cp /var/log/apigee/message-processor/logs/transactions.log .
 cp /var/log/apigee/message-processor/logs/access.log .
 
+cp /var/log/apigee/router/system-monitor.log .
+cp /var/log/apigee/router/logs/system.log .
+cp /var/log/apigee/router/logs/transactions.log .
+cp /var/log/apigee/router/logs/access.log .
+
 # Process info
 echo "ps -elf|egrep -i \"apigee|java\"" >> process.info
 ps -elf| egrep -i "apigee|java" >> process.info
