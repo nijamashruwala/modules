@@ -15,13 +15,8 @@ class apigee {
   enable     => 'true',
   hasrestart => 'true',
   hasstatus  => 'true',
-#  start     => '/opt/apigee/bin/all-start.sh',
-  restart     => '/etc/init.d/apigee restart',
-#  stop      => '/opt/apigee/bin/all-stop.sh',
-#  stop      => '/etc/init.d/apigee stop',
-#  status    => '/opt/apigee/bin/all-status.sh',
-#  status    => '/etc/init.d/apigee status',
-  subscribe => [ 
+  require    => [ 
+#  subscribe => [ 
                  File['apigee_init'],
                  File['get_logs.sh'],
                ],

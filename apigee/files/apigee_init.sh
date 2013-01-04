@@ -5,11 +5,15 @@
 
 
 APIGEE_BIN_DIR='/opt/apigee/bin'
+INIT_LOG='/mnt/logs/init_events.log'
 server_types="management-server|router|message-processor|ingest-server|qpid-server|postgres-server"
+datestamp=`date +%F.%H.%M.%S`
 
 case "$1" in
 start)
-	$APIGEE_BIN_DIR/all-start.sh
+   $APIGEE_BIN_DIR/all-start.sh
+   java_pid=`ps -elf|grep java|grep apigee|egrep -i "${server_types}"|awk '{ print $4 }'`;
+   echo "$datestamp - START service with pid $java_pid" >> $INIT_LOG
 ;;
 status)
    status_str=`$APIGEE_BIN_DIR/all-status.sh`
@@ -17,17 +21,22 @@ status)
      is_running=0				# true
    else is_running=1		# false
    fi
-   echo "$status_str"
-   #echo "is_running is $is_running (0 is true, 1 is false)"
+   echo "$datestamp - status check, status is $is_running (0 is true, 1 is false)" >> $INIT_LOG 
    exit $is_running
 ;;
 stop)
+	 # Because puppet is dumb, this handles the restart case too
    java_pid=`ps -elf|grep java|grep apigee|egrep -i "${server_types}"|awk '{ print $4 }'`;
+   if [ -x /root/get_logs.sh ] ; then
+     echo "$datestamp - got logs on STOP" >> $INIT_LOG
+     /root/get_logs.sh;
+   fi
+   echo "$datestamp - STOPPING service with pid $java_pid" >> $INIT_LOG
    $APIGEE_BIN_DIR/all-stop.sh
 	 sleep 4
    is_stopped=`ps -elf|grep $java_pid|egrep -v grep|awk '{ print $4 }'`
    if [ ! -z $is_stopped ] ; then
-     echo "Killing java process $java_pid"
+     echo "$datestamp - KILLING java process $java_pid" >> $INIT_LOG
      kill -9 $java_pid
    fi
 ;;
@@ -35,6 +44,7 @@ stop)
 restart)
     if [ -x /root/get_logs.sh ] ; then
       /root/get_logs.sh;
+			echo "$datestamp - got logs on RESTART" >> $INIT_LOG 
     fi
   	$0 stop
   	$0 start
@@ -44,3 +54,4 @@ restart)
         echo "Usage: $0 {status|start|stop|restart}"
         exit 1
 esac
+
