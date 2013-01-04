@@ -36,7 +36,6 @@ restart)
     if [ -x /root/get_logs.sh ] ; then
       /root/get_logs.sh;
     fi
-
   	$0 stop
   	$0 start
 ;;

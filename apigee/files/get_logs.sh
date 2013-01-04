@@ -5,7 +5,7 @@
 
 datestamp=`date +%F-%H.%M.%S`
 tempdir="/mnt/logs"
-# Need to make sure this is the right java pid... Right now, there's only one java process
+#TODO - Need to make sure this is the right java pid... Right now, there's only one java process
 javapid=`pgrep java`
 num_jstacks=5
 
@@ -20,15 +20,14 @@ for (( i=0; i<$num_jstacks; i++ )) ; do
 done;
 
 # Logs
-cp /var/log/apigee/message-processor/system-monitor.log .
-cp /var/log/apigee/message-processor/logs/system.log .
-cp /var/log/apigee/message-processor/logs/transactions.log .
-cp /var/log/apigee/message-processor/logs/access.log .
+LOG_FILES="/var/log/apigee/message-processor/system-monitor.log /var/log/apigee/message-processor/logs/system.log /var/log/apigee/message-processor/logs/transactions.log /var/log/apigee/message-processor/logs/access.log /var/log/apigee/router/system-monitor.log /var/log/apigee/router/logs/system.log /var/log/apigee/router/logs/transactions.log /var/log/apigee/router/logs/access.log"
 
-cp /var/log/apigee/router/system-monitor.log .
-cp /var/log/apigee/router/logs/system.log .
-cp /var/log/apigee/router/logs/transactions.log .
-cp /var/log/apigee/router/logs/access.log .
+for file in $LOG_FILES ; do
+	if [ -e $file ] ; then 
+    #echo "$file"
+		cp $file .
+	fi
+done
 
 # Process info
 echo "ps -elf|egrep -i \"apigee|java\"" >> process.info

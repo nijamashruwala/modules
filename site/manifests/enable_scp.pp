@@ -3,6 +3,6 @@ class site::enable_scp {
   file { 'security.sh':
     ensure  => 'file',
     path    => '/etc/profile.d/security.sh',
-    content => 'puppet:///site/security.sh',
+    source  => "puppet:///modules/site/security.sh",
   }
 }

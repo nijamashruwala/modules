@@ -3,22 +3,28 @@
 class apigee {
   # Include other modules and classes
   include site::packages
+  include apigee::gw_logging
   # Variables will eventually go here, I think
 
 
   service { 'apigee':
   # This defines software installed by the OPDK and how puppet should interact
   # with is. Eventually, OPDK definition could go somewhere here too.
-  name      => 'apigee', 
-  ensure    => 'running',
-  enable    => 'true',
+  name       => 'apigee', 
+  ensure     => 'running',
+  enable     => 'true',
+  hasrestart => 'true',
+  hasstatus  => 'true',
 #  start     => '/opt/apigee/bin/all-start.sh',
-  start     => '/etc/init.d/apigee start',
+  restart     => '/etc/init.d/apigee restart',
 #  stop      => '/opt/apigee/bin/all-stop.sh',
-  stop      => '/etc/init.d/apigee stop',
+#  stop      => '/etc/init.d/apigee stop',
 #  status    => '/opt/apigee/bin/all-status.sh',
-  status    => '/etc/init.d/apigee status',
-  subscribe => File['apigee_init'],
+#  status    => '/etc/init.d/apigee status',
+  subscribe => [ 
+                 File['apigee_init'],
+                 File['get_logs.sh'],
+               ],
   }
   
   file { 'apigee_init':
