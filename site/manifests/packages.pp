@@ -12,6 +12,12 @@ class site::packages {
 #  package { 'jna':
 #    ensure => latest,
 #  }
+  package { 'libXt':
+    ensure => present,
+  }
+  package { 'libXtst':
+    ensure => present,
+  }
   package { 'man':
     ensure => latest,
   }
@@ -61,5 +67,5 @@ class site::packages {
     ensure => latest,
   }
 }
-
+# libXt libXtst
 class {'site::packages': }
