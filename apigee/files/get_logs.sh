@@ -4,7 +4,8 @@
 # Author:   Nija Mashruwala
 
 datestamp=`date +%F-%H.%M.%S`
-tempdir="/mnt/logs"
+#tempdir="/mnt/logs"
+tempdir="/media/ephemeral0/logs"
 #TODO - Need to make sure this is the right java pid... Right now, there's only one java process
 javapid=`pgrep java`
 num_jstacks=5
@@ -49,4 +50,4 @@ echo "" >> system.info
 # Tar up and transport
 cd ..
 tar -czf $HOSTNAME.$datestamp.tar.gz $datestamp/*
-scp $HOSTNAME.$datestamp.tar.gz root@puppetmaster:/mnt/logdumps
+scp $HOSTNAME.$datestamp.tar.gz root@puppetmaster:$tempdir/logdumps
