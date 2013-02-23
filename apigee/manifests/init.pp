@@ -16,7 +16,6 @@ class apigee {
   hasrestart => 'true',
   hasstatus  => 'true',
   require    => [ 
-#  subscribe => [ 
                  File['apigee_init'],
                  File['get_logs.sh'],
                ],
