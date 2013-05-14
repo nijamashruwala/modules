@@ -3,9 +3,13 @@
 # Purpose:  Collect logs to dump on the puppetmaster
 # Author:   Nija Mashruwala
 
+#MNT_DIR="/media/ephemeral0"
+MNT_DIR="/mnt"
+puppetmaster="api-dev-puppet1"
+
 datestamp=`date +%F-%H.%M.%S`
 #tempdir="/mnt/logs"
-tempdir="/media/ephemeral0/logs"
+tempdir="$MNT_DIR/logs"
 #TODO - Need to make sure this is the right java pid... Right now, there's only one java process
 javapid=`pgrep java`
 num_jstacks=5
@@ -50,4 +54,4 @@ echo "" >> system.info
 # Tar up and transport
 cd ..
 tar -czf $HOSTNAME.$datestamp.tar.gz $datestamp/*
-scp $HOSTNAME.$datestamp.tar.gz root@puppetmaster:$tempdir/logdumps
+scp $HOSTNAME.$datestamp.tar.gz root@$puppetmaster:$tempdir/logdumps

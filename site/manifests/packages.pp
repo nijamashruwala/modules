@@ -18,6 +18,9 @@ class site::packages {
   package { 'libXtst':
     ensure => present,
   }
+  package { 'lsof':
+    ensure => present,
+  }
   package { 'man':
     ensure => latest,
   }
