@@ -1,6 +1,7 @@
 require 'facter'
 Facter.add(:system_role) do
   setcode do
-    Facter::Util::Resolution.exec("hostname -s")
+    role = Facter::Util::Resolution.exec("hostname -s")
+    role
   end
 end
