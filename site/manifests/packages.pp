@@ -30,6 +30,9 @@ class site::packages {
   package { 'nmap':
     ensure => latest,
   }
+  package { 'openldap-clients':
+    ensure => latest,
+  }
   package { 'openssh-clients':
     ensure => latest,
   }
