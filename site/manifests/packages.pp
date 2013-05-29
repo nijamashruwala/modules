@@ -12,6 +12,9 @@ class site::packages {
 #  package { 'jna':
 #    ensure => latest,
 #  }
+  package { 'git':
+    ensure => present,
+  }
   package { 'libXt':
     ensure => present,
   }
