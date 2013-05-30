@@ -57,6 +57,9 @@ class site::packages {
   package { 'telnet':
     ensure => latest,
   }
+  package { 'traceroute':
+    ensure => latest,
+  }
   package { 'tree':
     ensure => latest,
   }
