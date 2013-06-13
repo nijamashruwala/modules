@@ -48,6 +48,9 @@ class site::packages {
   package { 'screen':
     ensure => latest,
   }
+  package { 'ssldump':
+    ensure => latest,
+  }
   package { 'sysstat':
     ensure => latest,
   }
@@ -77,4 +80,4 @@ class site::packages {
   }
 }
 # libXt libXtst
-class {'site::packages': }
+class { 'site::packages': }
