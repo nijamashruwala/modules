@@ -4,7 +4,7 @@
 # processname: java
 
 
-APIGEE_BIN_DIR='/opt/apigee/bin'
+APIGEE_BIN_DIR='/mnt/apigee4/bin'
 MNT_DIR='/mnt'
 INIT_LOG="$MNT_DIR/logs/init_events.log"
 server_types="management-server|router|message-processor|ingest-server|qpid-server|postgres-server"

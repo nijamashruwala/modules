@@ -5,7 +5,8 @@
 
 #MNT_DIR="/media/ephemeral0"
 MNT_DIR="/mnt"
-puppetmaster="api-dev-puppet1"
+APIGEE_ROOT="${MNT_DIR}/apigee4"
+puppetmaster="api-uattemp-puppet1"
 
 datestamp=`date +%F-%H.%M.%S`
 #tempdir="/mnt/logs"
@@ -25,7 +26,8 @@ for (( i=0; i<$num_jstacks; i++ )) ; do
 done;
 
 # Logs
-LOG_FILES="/var/log/apigee/message-processor/system-monitor.log /var/log/apigee/message-processor/logs/system.log /var/log/apigee/message-processor/logs/transactions.log /var/log/apigee/message-processor/logs/access.log /var/log/apigee/router/system-monitor.log /var/log/apigee/router/logs/system.log /var/log/apigee/router/logs/transactions.log /var/log/apigee/router/logs/access.log"
+#LOG_FILES="/var/log/apigee/message-processor/system-monitor.log /var/log/apigee/message-processor/logs/system.log /var/log/apigee/message-processor/logs/transactions.log /var/log/apigee/message-processor/logs/access.log /var/log/apigee/router/system-monitor.log /var/log/apigee/router/logs/system.log /var/log/apigee/router/logs/transactions.log /var/log/apigee/router/logs/access.log"
+LOG_FILES="${APIGEE_ROOT}/var/log/apigee/message-processor/system-monitor.log ${APIGEE_ROOT}/var/log/apigee/message-processor/logs/system.log ${APIGEE_ROOT}/var/log/apigee/message-processor/logs/transactions.log ${APIGEE_ROOT}/var/log/apigee/message-processor/logs/access.log ${APIGEE_ROOT}/var/log/apigee/router/system-monitor.log ${APIGEE_ROOT}/var/log/apigee/router/logs/system.log ${APIGEE_ROOT}/var/log/apigee/router/logs/transactions.log ${APIGEE_ROOT}/var/log/apigee/router/logs/access.log"
 
 for file in $LOG_FILES ; do
 	if [ -e $file ] ; then 
