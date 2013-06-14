@@ -83,4 +83,4 @@ class site::packages {
   }
 }
 # libXt libXtst
-class { 'site::packages': }
+#class { 'site::packages': }
