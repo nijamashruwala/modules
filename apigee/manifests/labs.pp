@@ -32,8 +32,10 @@ class apigee::labs inherits apigee {
 #    mode   =>
 #    source?
 #  }
+  $hiera_var = hiera('monkey')
+
   notify { "labs":
     withpath => "true",
-    name     => "my_lib_thirdparty_dir is $my_lib_thirdparty_dir, hiera var monkey is ",
+    name     => "my_lib_thirdparty_dir is $my_lib_thirdparty_dir, hiera var monkey is $hiera_var",
   }
 }
