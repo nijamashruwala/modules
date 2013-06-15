@@ -20,3 +20,9 @@ Facter.add(:role) do
     array[2]
   end
 end
+
+Facter.add(:rolenumber) do
+  setcode do
+    array[2]
+  end
+end
