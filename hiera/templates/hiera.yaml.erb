@@ -1,0 +1,31 @@
+# /etc/puppetlabs/puppet/hiera.yaml
+# Managed by puppet. Changes will be overwritten
+# Purpose: hiera set up for the puppetmaster
+# Notes:
+#       Cribbed heavily from Apigee GOC
+#       May need to install the calling_module fact later
+#       Probably will need to add a section for role for the apigee modules... 
+#          Can it be handled by calling_module or...?
+---
+:backends: - yaml
+#:logger: console
+:logger: puppet
+:hierarchy:
+#   - %{env}/%{datacenter}/%{application}
+#   - %{env}/%{datacenter}/%{calling_module}
+   - %{env}/%{datacenter}/common
+#   - %{env}/%{pod}/%{application}
+#   - %{env}/%{pod}/%{calling_module}
+#   - %{env}/%{pod}/common
+#   - %{env}/%{application}
+#   - %{env}/%{calling_module}
+   - %{env}/common
+#   - %{datacenter}/%{application}
+#   - %{datacenter}/%{calling_module}
+   - %{datacenter}/common
+#   - %{application}
+#   - %{calling_module}
+   - common
+   
+:yaml:
+   :datadir: <%= hiera_data %>
