@@ -2,6 +2,7 @@ require 'facter'
 
 local_hostname = Facter.value('hostname')
 array = local_hostname.split("-")
+rn = array[2].scan(/\d+/).first
 
 Facter.add(:function) do
   setcode do
@@ -15,14 +16,15 @@ Facter.add(:env) do
   end
 end
 
-Facter.add(:role) do
+Facter.add(:rolenumber) do
   setcode do
-    array[2]
+    rn
   end
 end
 
-Facter.add(:rolenumber) do
+Facter.add(:role) do
   setcode do
-    array[2]
+    array[2].delete( rn )
   end
 end
+
