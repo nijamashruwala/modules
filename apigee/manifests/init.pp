@@ -3,7 +3,6 @@
 class apigee {
   # Include other modules and classes
   include site::packages
-  include apigee::gw_logging
   # Variables will eventually go here, I think
   $my_mnt_dir = hiera('mnt_dir')
   $my_opdk_version = "4.22.0.0"
