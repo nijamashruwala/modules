@@ -26,17 +26,22 @@ class apigee::labs inherits apigee {
 #    source => "puppet:///modules/apigee/apigee_init.sh",
 #  }
 
-#  file { 'apigee_jvm_tuning':
-#    path   =>
-#    ensure =>
-#    mode   =>
-#    source?
-#  }
-  $mnt_dir = hiera('mnt_dir')
-  $test_var = hiera('test_var')
+  file { 'mp_cass_caching':
+    path   => "$my_conf_mp/keymanagement.properties",
+    ensure => file,
+  }->
+  file_line { 'mp_cass_caching_enable':
+    ensure => present,
+    path   => "$my_conf_mp/keymanagement.properties",
+    line   => "kms_cache_memory_element_enable=true",
+  }
+  
+
+#  $mnt_dir = hiera('mnt_dir')
+#  $test_var = hiera('test_var')
 
   notify { "labs":
     withpath => "true",
-    name     => "mnt_dir is $mnt_dir , test_var is $test_var",
+    name     => "my_conf_mp is $my_conf_mp, mnt_dir is $mnt_dir",
   }
 }
