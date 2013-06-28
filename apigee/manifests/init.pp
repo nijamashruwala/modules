@@ -5,7 +5,7 @@ class apigee {
   include site::packages
   include apigee::gw_logging
   # Variables will eventually go here, I think
-  $my_mnt_dir = "/mnt"
+  $my_mnt_dir = hiera('mnt_dir')
   $my_opdk_version = "4.22.0.0"
   $my_apigee_rpm_version = "1.0.0.1305310544"
   $my_root_dir = "$my_mnt_dir/apigee4"
