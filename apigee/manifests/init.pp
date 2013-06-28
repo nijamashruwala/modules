@@ -13,6 +13,7 @@ class apigee {
   $my_run_dir = "$my_root_dir/bin"
   $my_lib_thirdparty_dir = "$my_root_dir/share/apigee/lib/thirdparty"
   $my_conf_mp = "$my_root_dir/conf/apigee/message-processor"
+  $my_conf_ms = "$my_root_dir/conf/apigee/management-server"
 
 #  service { 'apigee':
   # This defines software installed by the OPDK and how puppet should interact
