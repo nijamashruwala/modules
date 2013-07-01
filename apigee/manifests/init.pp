@@ -6,7 +6,7 @@ class apigee {
   # Variables will eventually go here, I think
   #$my_mnt_dir = hiera('mnt_dir')
   $my_mnt_dir = "${derived_mnt_dir}"
-  $my_opdk_version = "4.22.0.0"
+  $my_opdk_version = "4.22.6.1"
   $my_apigee_rpm_version = "1.0.0.1305310544"
   $my_root_dir = "$my_mnt_dir/apigee4"
   $my_run_dir = "$my_root_dir/bin"
