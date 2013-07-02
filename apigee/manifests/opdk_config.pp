@@ -12,14 +12,15 @@ class apigee::opdk_config inherits apigee {
     source => "puppet:///modules/apigee/license.txt",
   }
 
-   file { 'OPDK':
-     owner  => "apigee",
-     group  => "apigee",
-     path   => "$my_mnt_dir/$opdk_bin",
-     ensure => file,
-     mode   => '0777',
-     source => "puppet:///modules/apigee/$opdk_bin",
-   }
+#    file { 'apigee_opdk_file':
+#      owner   => "apigee",
+#      group   => "apigee",
+#      path    => "$my_mnt_dir/$opdk_bin",
+#      ensure  => present,
+#      mode    => '0777',
+#      source  => "puppet:///modules/apigee/$opdk_bin",
+#      require => File['apigee_opdk_license'],
+#    }
 }
 class { 'apigee::opdk_config':
 }

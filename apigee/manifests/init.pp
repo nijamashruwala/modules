@@ -3,6 +3,7 @@
 class apigee {
   # Include other modules and classes
   include site::packages
+ 
   # Variables will eventually go here, I think
   #$my_mnt_dir = hiera('mnt_dir')
   $my_mnt_dir = "${derived_mnt_dir}"
@@ -13,8 +14,9 @@ class apigee {
   $my_lib_thirdparty_dir = "$my_root_dir/share/apigee/lib/thirdparty"
   $my_conf_mp = "$my_root_dir/conf/apigee/message-processor"
   $my_conf_ms = "$my_root_dir/conf/apigee/management-server"
+  $my_cass_bin_dir = "$my_root_dir/share/apache-cassandra-1.0.8/bin"
 
-  notify { "Applying apigee class, my_mnt_dir is $my_mnt_dir ; my_conf_ms is $my_conf_ms ":
+  notify { "Applying apigee class, role is ${role} number is ${rolenumber} ":
     withpath => true,
   }
 
