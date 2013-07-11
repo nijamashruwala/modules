@@ -9,9 +9,9 @@ class site::packages {
   package { 'bind-utils':
     ensure => latest,
   }
-#  package { 'jna':
-#    ensure => latest,
-#  }
+  package { 'dos2unix':
+    ensure => latest,
+  }
   package { 'git':
     ensure => present,
   }
