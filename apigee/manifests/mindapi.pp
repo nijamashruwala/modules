@@ -6,10 +6,10 @@ class apigee::mindapi inherits apigee {
     mode    => '0764',
     source => "puppet:///modules/apigee/UnboundIdCustomMindProvider.jar",
   }
-#  notify { "unboundidcustommindprovider_jar":
-#    withpath => "true",
-#    name     => "my_lib_thirdparty_dir is $my_lib_thirdparty_dir",
-#  }
+  notify { "unboundidcustommindprovider_jar":
+    withpath => "true",
+    name     => "my_lib_thirdparty_dir is $my_lib_thirdparty_dir",
+  }
 }
 class { 'apigee::mindapi':
 }
