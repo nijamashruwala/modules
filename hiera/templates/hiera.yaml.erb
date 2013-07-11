@@ -11,6 +11,7 @@
 #:logger: console
 :logger: puppet
 :hierarchy:
+   - %{env}/%{datacenter}/%{fqdn}
 #   - %{env}/%{datacenter}/%{application}
 #   - %{env}/%{datacenter}/%{calling_module}
    - %{env}/%{datacenter}/common
@@ -28,4 +29,4 @@
    - common
    
 :yaml:
-   :datadir: <%= hiera_data %>
+   :datadir: %{derived_mnt_dir}/hiera/data
