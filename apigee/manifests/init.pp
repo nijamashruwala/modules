@@ -16,9 +16,9 @@ class apigee {
   $my_conf_ms = "$my_root_dir/conf/apigee/management-server"
   $my_cass_bin_dir = "$my_root_dir/share/apache-cassandra-1.0.8/bin"
 
-  notify { "Applying apigee class, role is ${role} number is ${rolenumber} ":
-    withpath => true,
-  }
+#  notify { "Applying apigee class, role is ${role} number is ${rolenumber} ":
+#    withpath => true,
+#  }
 
 #  service { 'apigee':
   # This defines software installed by the OPDK and how puppet should interact

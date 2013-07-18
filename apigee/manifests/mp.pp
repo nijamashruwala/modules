@@ -3,7 +3,7 @@ class apigee::mp inherits apigee {
   include apigee::threadpool
   include apigee::mindapi
 
-# Enable cassandra caching for API products
+# Enable/Disable cassandra caching for API products
 # Can this be replaced by an augeas call?
   file { 'conf_keymanagement.properties':
     path => "$my_conf_mp/keymanagement.properties",
@@ -19,7 +19,30 @@ class apigee::mp inherits apigee {
     line   => "kms_cache_memory_element_enable=false",
   }
 
-#  notify { "Applying apigee::mp class, my_mnt_dir is $my_mnt_dir ; my_conf_mp is $my_conf_mp ":
-#    withpath => true,
-#  }
+# set /augeas/load/xml/lens "Xml.lns"
+# set /augeas/load/xml/incl "/mnt/apigee4/conf/apigee/message-processor/logback.xml"
+# load
+# print /files
+  $context = "$my_conf_mp/logback.xml"
+  $urllog_value = '${data.dir:-..}/logs/urllog-%d{yyyy-MM-dd}.%i.log.gz'
+  $startuperr_value = '${data.dir:-..}/logs/startupruntimeerrors-%d{yyyy-MM-dd}.%i.log.gz'
+  $translog_value = '${data.dir:-..}/logs/transactions-%d{yyyy-MM-dd}.%i.log.gz'
+  $accesslog_value = '${data.dir:-..}/logs/access-%d{yyyy-MM-dd}.%i.log.gz'
+  
+  augeas { "logback.xml":
+    lens    => "Xml.lns",
+    incl    => "$context",
+    context => "/files$context",
+    # /files/mnt/apigee4/conf/apigee/message-processor/logback.xml/configuration/appender[3]/#attribute/name = "URLLOGFILE"
+    # /files/mnt/apigee4/conf/apigee/message-processor/logback.xml/configuration/appender[3]/rollingPolicy/fileNamePattern/#text = "${data.dir:-..}/logs/system-%d{yyyy-MM-dd}.%i.log.gz"
+    # set /files/test.xml/configuration/properties/property[#attribute/name='username']/#text NEWUSER
+    changes => [ 
+      "set configuration/appender[#attribute/name='URLLOGFILE']/rollingPolicy/fileNamePattern/#text $urllog_value", 
+      "set configuration/appender[#attribute/name='STARTUP_RUNTIME_ERROR']/rollingPolicy/fileNamePattern/#text $startuperr_value", 
+      "set configuration/appender[#attribute/name='TRANSACTION_LOGS']/rollingPolicy/fileNamePattern/#text $translog_value", 
+      "set configuration/appender[#attribute/name='ACCESSINFO_LOGS']/rollingPolicy/fileNamePattern/#text $accesslog_value", 
+      ],
+    }
+
+  notice("Applying apigee::mp class; urllog_value is $urllog_value ; startuperr_value is $startuperr_value ; translog_value is $translog_value ; accesslog_value is $accesslog_value")
 }
