@@ -19,6 +19,8 @@ class apigee::mp inherits apigee {
     line   => "kms_cache_memory_element_enable=false",
   }
 
+# Change logging and log rotation settings, uses augeas
+#
 # set /augeas/load/xml/lens "Xml.lns"
 # set /augeas/load/xml/incl "/mnt/apigee4/conf/apigee/message-processor/logback.xml"
 # load
@@ -28,7 +30,8 @@ class apigee::mp inherits apigee {
   $startuperr_value = '${data.dir:-..}/logs/startupruntimeerrors-%d{yyyy-MM-dd}.%i.log.gz'
   $translog_value = '${data.dir:-..}/logs/transactions-%d{yyyy-MM-dd}.%i.log.gz'
   $accesslog_value = '${data.dir:-..}/logs/access-%d{yyyy-MM-dd}.%i.log.gz'
-  
+#     <root level="${log.level:-DEBUG}">
+  $rootloglevel = '${log.level:-INFO}'
   augeas { "logback.xml":
     lens    => "Xml.lns",
     incl    => "$context",
@@ -41,6 +44,7 @@ class apigee::mp inherits apigee {
       "set configuration/appender[#attribute/name='STARTUP_RUNTIME_ERROR']/rollingPolicy/fileNamePattern/#text $startuperr_value", 
       "set configuration/appender[#attribute/name='TRANSACTION_LOGS']/rollingPolicy/fileNamePattern/#text $translog_value", 
       "set configuration/appender[#attribute/name='ACCESSINFO_LOGS']/rollingPolicy/fileNamePattern/#text $accesslog_value", 
+      "set configuration/root/#attribute/level $rootloglevel",
       ],
     }
 
