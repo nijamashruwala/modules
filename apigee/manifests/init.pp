@@ -3,7 +3,7 @@
 class apigee {
   # Include other modules and classes
   include site::packages
- 
+
   # Variables will eventually go here, I think
   #$my_mnt_dir = hiera('mnt_dir')
   $my_mnt_dir = "${derived_mnt_dir}"
@@ -24,17 +24,17 @@ class apigee {
 #  service { 'apigee':
   # This defines software installed by the OPDK and how puppet should interact
   # with is. Eventually, OPDK definition could go somewhere here too.
-#   name       => 'apigee', 
+#   name       => 'apigee',
 #   ensure     => 'running',
 #   enable     => 'true',
 #   hasrestart => 'true',
 #   hasstatus  => 'true',
-#   require    => [ 
+#   require    => [
 #                  File['apigee_init'],
 #                  File['get_logs.sh'],
 #                ],
 #   }
-#   
+#
 #   file { 'apigee_init':
 #     path    => '/etc/init.d/apigee',
 #     ensure  => file,
