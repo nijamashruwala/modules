@@ -12,8 +12,9 @@ class apigee {
   $my_root_dir = "$my_mnt_dir/apigee4"
   $my_run_dir = "$my_root_dir/bin"
   $my_lib_thirdparty_dir = "$my_root_dir/share/apigee/lib/thirdparty"
-  $my_conf_mp = "$my_root_dir/conf/apigee/message-processor"
   $my_conf_ms = "$my_root_dir/conf/apigee/management-server"
+  $my_conf_router = "$my_root_dir/conf/apigee/router"
+  $my_conf_mp = "$my_root_dir/conf/apigee/message-processor"
   $my_cass_bin_dir = "$my_root_dir/share/apache-cassandra-1.0.8/bin"
 
 #  notify { "Applying apigee class, role is ${role} number is ${rolenumber} ":

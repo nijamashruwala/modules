@@ -2,9 +2,10 @@
 class apigee::mp inherits apigee {
   include apigee::threadpool
   include apigee::mindapi
+  include apigee::troubleshooting_utils
 
 # Enable/Disable cassandra caching for API products, uses augeas
-  $toggle_value = "true"
+  $toggle_value = hiera('cass_row_caching')
   $context_conf = "$my_conf_mp/keymanagement.properties"
   augeas { "conf_keymanagement.properties":
     lens    => "Properties.lns",
@@ -23,7 +24,8 @@ class apigee::mp inherits apigee {
   $translog_value = '${data.dir:-..}/logs/transactions-%d{yyyy-MM-dd}.%i.log.gz'
   $accesslog_value = '${data.dir:-..}/logs/access-%d{yyyy-MM-dd}.%i.log.gz'
 #     <root level="${log.level:-DEBUG}">
-  $rootloglevel = '${log.level:-INFO}'
+  $my_log_level = hiera('root_log_level')
+  $rootloglevel = "${log.level:-$my_log_level}"
   augeas { "logback.xml":
     lens    => "Xml.lns",
     incl    => "$context",
