@@ -19,7 +19,7 @@ class apigee::opdk_config inherits apigee {
 #      ensure  => present,
 #      mode    => '0777',
 #      source  => "puppet:///modules/apigee/$opdk_bin",
-#      require => File['apigee_opdk_license'],
+#      backup  => false,
 #    }
 }
 class { 'apigee::opdk_config':

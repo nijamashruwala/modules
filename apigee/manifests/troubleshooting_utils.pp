@@ -14,14 +14,14 @@ class apigee::troubleshooting_utils inherits apigee {
     path    => "$util_dir/sysinfo.py",
     ensure  => file,
     mode    => '0755',
-    source => "puppet:///modules/apigee/sysinfo.py",
-    require    => File['troubleshooting_dir'],
+    source  => "puppet:///modules/apigee/sysinfo.py",
+    require => File['troubleshooting_dir'],
   }
   file { 'README-sysinfo':
     path    => "$util_dir/README-sysinfo.py",
     ensure  => file,
     mode    => '0755',
-    source => "puppet:///modules/apigee/README-sysinfo.py",
-    require    => File['troubleshooting_dir'],
+    source  => "puppet:///modules/apigee/README-sysinfo.py",
+    require => File['troubleshooting_dir'],
   }
 }
