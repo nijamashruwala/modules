@@ -1,8 +1,7 @@
 #/etc/puppetlabs/puppet/modules/apigee/manifests/init.pp
-
+# This is for experimental code and should not be used except for development or
+# testing
 class apigee::labs inherits apigee {
-  # Variables will eventually go here, I think
-
 #  service { 'apigee':
   # This defines software installed by the OPDK and how puppet should interact
   # with is. Eventually, OPDK definition could go somewhere here too.

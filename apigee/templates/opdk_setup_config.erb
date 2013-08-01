@@ -1,12 +1,13 @@
+zk_hosts=<%= hiera('datastore_ips') %>
 HOSTIP=<%= hostname %>
-MSIP=<%= hiera("mgmt_int_ip") %>
-ADMIN_EMAIL=admin@apigee.com
-APIGEE_ADMINPW=s3cr3t4bf
-LICENSE_FILE=/home/apigee/license.txt
-LDAP_TYPE=2
-LDAP_SID=1
-LDAP_PEER=$IP5
-APIGEE_LDAPPW=s3cr3t4bf
+MSIP=<%= hiera('mgmt_int_ip') %>
+ADMIN_EMAIL=<%= hiera('orgadmin_email') %>
+APIGEE_ADMINPW=<%= hiera('orgadmin_passwd') %>
+LICENSE_FILE=<%= hiera('apigee_license_file') %>
+#LDAP_TYPE=2
+#LDAP_SID=1
+#LDAP_PEER=$IP5
+APIGEE_LDAPPW=<%= hiera('orgadmin_passwd') %>
 ENABLE_AX=y
 MP_POD=gateway-1
 REGION=dc-1

@@ -1,4 +1,7 @@
 #/etc/puppetlabs/puppet/modules/apigee/manifests/mgmt.pp
+# This is the class definition for all management servers. Per version fixes 
+# go directly in the file. Reusable code, multiple version attributes and tuning 
+# should get their own classes, and then be included in here
 class apigee::mgmt inherits apigee {
 #   file { 'apigee_opdk_license':
 #     owner  => "apigee",
@@ -10,7 +13,7 @@ class apigee::mgmt inherits apigee {
 #   }
 
 # Enable/Disable cassandra caching for API products, uses augeas
-  $toggle_value = "true"
+  $toggle_value = hiera('cass_row_caching')
   $context_conf = "$my_conf_mp/keymanagement.properties"
   augeas { "conf_keymanagement.properties":
     lens    => "Properties.lns",

@@ -1,4 +1,7 @@
 #/etc/puppetlabs/puppet/modules/apigee/manifests/mp.pp
+# This is the class definition for all message processors. Per version fixes 
+# go directly in the file. Reusable code, multiple version attributes and tuning 
+# should get their own classes, and then be included in here
 class apigee::mp inherits apigee {
   include apigee::threadpool
   include apigee::mindapi

@@ -1,15 +1,14 @@
 #/etc/puppetlabs/puppet/modules/apigee/manifests/troubleshooting-utils.pp
-# Put troubleshooting utils on the servers
-
+# This class is to define generic trouble shooting utils.
 class apigee::troubleshooting_utils inherits apigee {
-  $base_path='/home/apigee'
-
   # Because puppet does not autocreate required directories
-  $util_dir="$base_path/troubleshooting_utils"
+  $util_dir="$apigee_user_home/troubleshooting_utils"
   file { 'troubleshooting_dir':
     path   => "$util_dir",
     ensure => directory,
   }
+  # The python app from Vaidhy that will get system state and is able to dump 
+  # that state to an ftp site. Shoudl only be included in mp.pp and router.pp
   file { 'sysinfo':
     path    => "$util_dir/sysinfo.py",
     ensure  => file,
