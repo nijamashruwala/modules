@@ -11,5 +11,6 @@ class apigee::qpid inherits apigee {
 #export LD_LIBRARY_PATH
 #export PYTHONPATH
 
+# TODO: Add files in ../files/axload to $apigee_bin_dir
 
 }
