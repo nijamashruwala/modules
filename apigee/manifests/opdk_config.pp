@@ -2,6 +2,7 @@
 # This is the opdk config class which the service class depends on. It encapsulates
 # apigee-install.sh, apigee-setup.sh, and might even call stuff for onboarding
 # if I can figure out how to write it neatly
+
 class apigee::opdk_config inherits apigee {
   $opdk_bin = "apigee-gateway-$my_opdk_version.zip"
   $opdk_license_file = hiera('apigee_license_file')
@@ -21,11 +22,13 @@ class apigee::opdk_config inherits apigee {
       mode   => '0777',
       source => "puppet:///modules/apigee/license.txt",
     }
+  }
+
   # Place the install answers file in $my_mnt_dir
   file { 'apigee_opdk_install_answers':
     owner  => $apigee_user,
     group  => $apigee_group,
-    path   => $my_mnt_dir,
+    path   => $my_mnt_dir/apigee_opdk_install_answers.txt,
     ensure => file,
     mode   => '0777',
     source => "puppet:///modules/apigee/apigee_opdk_install_answers.erb"
@@ -35,7 +38,7 @@ class apigee::opdk_config inherits apigee {
   file { 'apigee_opdk_setup_answers':
     owner  => $apigee_user,
     group  => $apigee_group,
-    path   => $my_mnt_dir,
+    path   => $my_mnt_dir/apigee_opdk_setup_answers.txt,
     ensure => file,
     mode   => '0777',
     source => "puppet:///modules/apigee/apigee_opdk_setup_answers.erb"
@@ -61,7 +64,4 @@ class apigee::opdk_config inherits apigee {
 #  echo "  -p | --profile <profile> : aio,ds,is,mp,ms,ps,qis,qs,r,rmp,sa,sax"
 #  echo "  -f | --file <filename> : Use defaults from <filename>"
 #  exit 1
-
-}
-class { 'apigee::opdk_config':
 }

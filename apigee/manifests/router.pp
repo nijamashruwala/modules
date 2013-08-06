@@ -25,5 +25,5 @@ class apigee::router inherits apigee {
     changes => [
       "set configuration/root/#attribute/level $rootloglevel",
       ],
-    }
+  }
 }

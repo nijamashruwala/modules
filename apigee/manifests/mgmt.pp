@@ -14,7 +14,7 @@ class apigee::mgmt inherits apigee {
 
 # Enable/Disable cassandra caching for API products, uses augeas
   $toggle_value = hiera('cass_row_caching')
-  $context_conf = "$my_conf_mp/keymanagement.properties"
+  $context_conf = "$my_conf_ms/keymanagement.properties"
   augeas { "conf_keymanagement.properties":
     lens    => "Properties.lns",
     incl    => "$context_conf",
@@ -54,6 +54,4 @@ class apigee::mgmt inherits apigee {
           "set configuration/root/#attribute/level $rootloglevel",
       ],
     }
-
-
 }
