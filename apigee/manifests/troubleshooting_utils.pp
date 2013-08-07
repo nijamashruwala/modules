@@ -23,4 +23,7 @@ class apigee::troubleshooting_utils inherits apigee {
     source  => "puppet:///modules/apigee/README-sysinfo.py",
     require => File['troubleshooting_dir'],
   }
+  package { 'httpd-tools':
+    ensure => latest,
+  }
 }
