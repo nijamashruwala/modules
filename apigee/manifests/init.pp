@@ -5,6 +5,7 @@
 class apigee {
   # Include other modules and classes
   include site::packages
+  include site::fix_yum_repos
 
   # Variables used by this and child classes
   # Example getting data from hiera

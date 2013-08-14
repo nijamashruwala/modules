@@ -2,6 +2,8 @@
 # This is for experimental code and should not be used except for development or
 # testing
 class apigee::labs inherits apigee {
+  include site::fix_yum_repos
+
 #  service { 'apigee':
   # This defines software installed by the OPDK and how puppet should interact
   # with is. Eventually, OPDK definition could go somewhere here too.
