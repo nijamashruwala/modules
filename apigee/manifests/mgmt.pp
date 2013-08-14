@@ -1,5 +1,11 @@
 #/etc/puppetlabs/puppet/modules/apigee/manifests/mgmt.pp
 class apigee::mgmt inherits apigee {
+# TODO: Add variable parsing for /mnt/apigee4/conf/apigee/setenv.sh
+#	Maybe use Shell.lns?
+#	Set/reset the JVM memory to buy slow leak time
+#
+# TODO: Add chunk for virtualized resource
+#	License file needs to exist in two places, /root/license.txt and $my_conf_ms/license.txt
 #   file { 'apigee_opdk_license':
 #     owner  => "apigee",
 #     group  => "apigee",
