@@ -1,0 +1,24 @@
+<LdapResource name="MIND">
+  <Connection>
+    <Hosts> 
+    <Host port="389">209.183.49.68</Host>
+    </Hosts>
+    <SSLEnabled>false</SSLEnabled> 
+    <Version>3</Version> 
+    <Authentication>simple</Authentication>
+    <ConnectionProvider>unboundid</ConnectionProvider>
+    <LdapConnectorClass>com.apigee.security.providers.authentication.unboundIdLdap.UnboundIdLDAPCustomProvider</LdapConnectorClass>
+  </Connection>
+  <ConnectPool enabled="true"> 
+    <Timeout>300000</Timeout> 
+    <Maxsize>3</Maxsize> 
+    <Prefsize>3</Prefsize> 
+    <Initsize>3</Initsize> 
+    <Protocol>plain</Protocol> 
+  </ConnectPool>
+  <Admin>
+    <DN>cn=BlackFlagV2,ou=Users,ou=Administration,o=Cingular</DN>
+    <Password>brw5915</Password>
+  </Admin>
+</LdapResource>
+

@@ -11,7 +11,7 @@
 
 class hiera(
   $hiera_yaml='/etc/puppetlabs/puppet/hiera.yaml',
-  $hiera_data="/mnt/hiera/data"
+  $hiera_data="<%= ${derived_mnt_dir} %>/hiera/data"
 ) {
 # $hiera_data= <%= hiera('mnt_dir') %> # Or something like this
   File {

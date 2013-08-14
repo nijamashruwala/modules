@@ -16,12 +16,12 @@ status)
 ;;
 stop)
    $APIGEE_BIN_DIR/all-stop.sh
-   java_pid=`pgrep java`
-   is_dead=`ps -elf|grep java|grep apigee`;
-   if [ is_dead ] ; then
-     echo "Killing java process $java_pid"
-   fi
-   killall -9 java
+   #java_pid=`pgrep java`
+   #is_dead=`ps -elf|grep java|grep apigee`;
+   #if [ is_dead ] ; then
+   #  echo "Killing java process $java_pid"
+   #fi
+   #killall -9 java
 ;;
 
 restart)

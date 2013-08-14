@@ -1,17 +1,14 @@
 # /etc/puppetlabs/puppet/modules/site/manifests/packages.pp
 class site::packages {
-  package { 'augeas':
-    ensure => latest,
-  }
   package { 'bc':
     ensure => latest,
   }
   package { 'bind-utils':
     ensure => latest,
   }
-#  package { 'jna':
-#    ensure => latest,
-#  }
+  package { 'dos2unix':
+    ensure => latest,
+  }
   package { 'git':
     ensure => present,
   }
@@ -27,16 +24,25 @@ class site::packages {
   package { 'man':
     ensure => latest,
   }
+  package { 'nagios-plugins-all':
+    ensure => latest,
+  }
   package { 'nc':
     ensure => latest,
   }
   package { 'nmap':
     ensure => latest,
   }
+  package { 'nrpe':
+    ensure => latest,
+  }
   package { 'openldap-clients':
     ensure => latest,
   }
   package { 'openssh-clients':
+    ensure => latest,
+  }
+  package { 'openssl':
     ensure => latest,
   }
   package { 'python-ldap':
