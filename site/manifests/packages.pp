@@ -33,9 +33,10 @@ class site::packages {
   package { 'nmap':
     ensure => latest,
   }
-  package { 'nrpe':
-    ensure => latest,
-  }
+#  package { 'nrpe':
+#    ensure => latest,
+#    require => Yumrepo[ "epel" ],
+#  }
   package { 'openldap-clients':
     ensure => latest,
   }

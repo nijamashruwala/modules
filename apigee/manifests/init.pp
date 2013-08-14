@@ -1,14 +1,21 @@
 #/etc/puppetlabs/puppet/modules/apigee/manifests/init.pp
-
+# This is the global class definition for the main apigee service. Reusable code,
+# multiple version attributes and tuning should get their own classes, and then
+# be included in the relevant subclasses
 class apigee {
   # Include other modules and classes
   include site::packages
+  include site::fix_yum_repos
 
-  # Variables will eventually go here, I think
-  #$my_mnt_dir = hiera('mnt_dir')
+  # Variables used by this and child classes
+  # Example getting data from hiera
+  $apigee_user = hiera('apigee_user')
+  $apigee_user_home = hiera('apigee_user_home')
+  $my_opdk_version = hiera('opdk_version')
+  $my_apigee_rpm_version2 = hiera('apigee_rpm_version')
+  $my_apigee_rpm_version = hiera('apigee_rpm_version')
+  # Example getting data from facter
   $my_mnt_dir = "${derived_mnt_dir}"
-  $my_opdk_version = "4.22.6.1"
-  $my_apigee_rpm_version = "1.0.0.1305310544"
   $my_root_dir = "$my_mnt_dir/apigee4"
   $my_run_dir = "$my_root_dir/bin"
   $my_lib_thirdparty_dir = "$my_root_dir/share/apigee/lib/thirdparty"
@@ -42,4 +49,5 @@ class apigee {
 #     #content => template('apigee/apigee_init.erb'),
 #     source => "puppet:///modules/apigee/apigee_init.sh",
 #   }
+# }
 }
