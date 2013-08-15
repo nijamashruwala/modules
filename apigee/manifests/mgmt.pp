@@ -3,6 +3,12 @@
 # go directly in the file. Reusable code, multiple version attributes and tuning 
 # should get their own classes, and then be included in here
 class apigee::mgmt inherits apigee {
+# TODO: Add variable parsing for /mnt/apigee4/conf/apigee/setenv.sh
+#	Maybe use Shell.lns?
+#	Set/reset the JVM memory to buy slow leak time
+#
+# TODO: Add chunk for virtualized resource
+#	License file needs to exist in two places, /root/license.txt and $my_conf_ms/license.txt
 #   file { 'apigee_opdk_license':
 #     owner  => "apigee",
 #     group  => "apigee",

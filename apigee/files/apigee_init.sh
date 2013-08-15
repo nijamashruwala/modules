@@ -1,6 +1,6 @@
 #!/bin/bash
 # chkconfig: 345 95 05
-# description: Wrapper script for apigee software. Not for use on datastores - does not handle Zookeeper and Cassandra
+# description: Wrapper script for apigee software.
 # processname: java
 
 

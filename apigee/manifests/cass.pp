@@ -15,8 +15,8 @@ class apigee::cass inherits apigee {
     hour    => fqdn_rand( 24 ),
   }
 
-  notify { 'cass.pp':
-    withpath => true,
-    name     => "applying cass.pp, check for cronjob in root's crontab",
-  }
+#  notify { 'cass.pp':
+#    withpath => true,
+#    name     => "applying cass.pp, check for cronjob in root's crontab",
+#  }
 }
