@@ -28,7 +28,7 @@ class apigee::opdk_config inherits apigee {
   file { 'apigee_opdk_install_answers':
     owner  => $apigee_user,
     group  => $apigee_group,
-    path   => $my_mnt_dir/apigee_opdk_install_answers.txt,
+    path   => "$my_mnt_dir/apigee_opdk_install_answers.txt",
     ensure => file,
     mode   => '0777',
     source => "puppet:///modules/apigee/apigee_opdk_install_answers.erb"
@@ -38,7 +38,7 @@ class apigee::opdk_config inherits apigee {
   file { 'apigee_opdk_setup_answers':
     owner  => $apigee_user,
     group  => $apigee_group,
-    path   => $my_mnt_dir/apigee_opdk_setup_answers.txt,
+    path   => "$my_mnt_dir/apigee_opdk_setup_answers.txt",
     ensure => file,
     mode   => '0777',
     source => "puppet:///modules/apigee/apigee_opdk_setup_answers.erb"
