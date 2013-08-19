@@ -11,6 +11,7 @@ class apigee::cass inherits apigee {
     ensure  => present,
     command => "$my_cass_bin_dir/nodetool -h `hostname -i` repair -pr",
     user    => 'root',
+    minute  => fqdn_rand( 30 ),
     weekday => fqdn_rand( 7 ),
     hour    => fqdn_rand( 24 ),
   }
