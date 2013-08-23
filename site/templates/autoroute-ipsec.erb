@@ -1,0 +1,102 @@
+#! /bin/bash
+#
+#
+# autoroute-ipsec         Start/Stop autoroute-ipsec
+#
+# chkconfig: 2345 90 60
+# description: Modifies route table to add a route when it may disappear with a DHCP renew
+#
+### BEGIN INIT INFO
+# Provides: autoroute-ipsec
+# Required-Start: $local_fs $syslog
+# Required-Stop: $local_fs $syslog
+# Default-Start:  2345
+# Default-Stop: 90
+# Short-Description: Modifies route table to add a route when it may disappear with a DHCP renew
+# Description: This daemon verifies that a specific route exists in the routing table
+#              and if it disappears, will reinstate it.
+### END INIT INFO
+
+name="autoroute-ipsec"
+#network="10.2.142.0"
+network="<%=autorouteipsec_network%>"
+#netmask="255.255.254.0"
+netmask="<%=autorouteipsec_netmask%>"
+secs="30"
+path="/etc/init.d"
+pidf="/var/run/autoroute-ipsec"
+
+#gateway="`sipcalc -i eth0 | awk '$1=="Usable" {print $NF}' | tr -d '\012'`"
+gateway="`ip addr show scope global eth0 | grep inet | awk '{print $4}' | sed 's/255/254/g'`"
+
+#[ "$0" != "$path/$name" ] && exec "$path/$name" "$@"
+
+log="/var/log/$name.log"
+
+case "$1" in
+  start)
+    echo "`date` - Starting $path/$name [$network/$netmask] gw[$gateway]... Log=[$log]" | tee -a $log
+    running=0
+    if [ -f $pidf ]; then
+        pid=`cat $pidf`
+        if [ "$pid" != "" ]; then
+            ps -p $pid > /dev/null
+            [ $? -eq 0 ] && running=1
+        fi
+    fi
+
+    if [ $running -eq 1 ]; then
+        echo "`date` - NOTE: $path/$name already running" | tee -a $log
+        exit
+    fi
+
+    # Run the following as a background process
+    (
+    while [ 1 ]; do
+        netstat -rn | grep -q "^${network}.*${gateway}"
+        if [ $? -ne 0 ]; then
+            echo "`date` - Adding missing route network=[$network] gateway=[$gateway]" | tee -a $log
+            route add -net $network netmask $netmask gw $gateway
+        fi
+        
+        sleep $secs
+        touch $log
+    done
+    ) > /dev/null 2>&1 &
+
+    echo "$!" > $pidf
+
+    ;;
+
+  stop)
+    echo -n "`date` - Stopping $path/$name ... " | tee -a $log
+
+    running=0
+    if [ -f $pidf ]; then
+        pid=`cat $pidf`
+        if [ "$pid" != "" ]; then
+            ps -p $pid > /dev/null
+            [ $? -eq 0 ] && running=1
+        fi
+    fi
+
+    if [ $running -eq 1 ]; then
+        echo -n "[$pid] " | tee -a $log
+        kill $pid
+    fi
+
+    #route delete -net $network netmask $netmask
+
+    echo "Complete" | tee -a $log
+    /bin/rm -f $pidf
+    ;;
+
+  restart)
+    $0 stop
+    $0 start
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+esac
