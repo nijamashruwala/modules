@@ -46,6 +46,9 @@ class site::packages {
   package { 'openssl':
     ensure => latest,
   }
+  package { 'patch':
+    ensure => latest,
+  }
   package { 'python-ldap':
     ensure => latest,
   }
