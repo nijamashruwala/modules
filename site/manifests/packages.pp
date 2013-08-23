@@ -24,9 +24,9 @@ class site::packages {
   package { 'man':
     ensure => latest,
   }
-  package { 'nagios-plugins-all':
-    ensure => latest,
-  }
+#  package { 'nagios-plugins-all':
+#    ensure => latest,
+#  }
   package { 'nc':
     ensure => latest,
   }
