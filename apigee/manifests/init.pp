@@ -19,10 +19,7 @@ class apigee {
   $my_root_dir = "$my_mnt_dir/apigee4"
   $my_run_dir = "$my_root_dir/bin"
   $my_lib_thirdparty_dir = "$my_root_dir/share/apigee/lib/thirdparty"
-  $my_conf_ms = "$my_root_dir/conf/apigee/management-server"
-  $my_conf_router = "$my_root_dir/conf/apigee/router"
-  $my_conf_mp = "$my_root_dir/conf/apigee/message-processor"
-  $my_conf_ldap = "$my_root_dir/conf/openldap"
+  $apigee_conf = "$my_root_dir/conf/apigee"
   $my_cass_bin_dir = "$my_root_dir/share/apache-cassandra-1.0.8/bin"
 
 #  notify { "Applying apigee class, role is ${role} number is ${rolenumber} ":
@@ -51,4 +48,25 @@ class apigee {
 #     source => "puppet:///modules/apigee/apigee_init.sh",
 #   }
 # }
+#
+# Test code that didn't work. Going back to using augeas.
+# Define a function to handle toggling comments 
+#  define augeasnew ($file,$line){
+#    $exp=regsubst($line[0], '^(un)?comment *(.*)' , '\2')
+#    case $line[0] {
+#      /^uncomment/: {
+#        exec {"/bin/sed -i -e '/${exp}/s/#//g' $file":
+#        onlyif => "/bin/grep '${exp}' ${file} | /bin/grep '#' ",}
+#      }
+#      /^comment/: {
+#        exec {"/bin/sed -i -e '/${exp}/ s/^/#/' $file":
+#        onlyif => "/bin/grep '${exp}' ${file} | /bin/grep -v '#' ",}
+#      }
+#      default: {
+#        augeas {'augeas-chg-any':
+#          context => "/files/${file}",
+#          changes => $line, }
+#      }  
+#    }
+#  }
 }

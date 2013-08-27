@@ -4,6 +4,8 @@
 # should get their own classes, and then be included in here
 class apigee::mgmt inherits apigee {
   include apigee::openldap
+
+  $my_conf = "$apigee_conf/management-server"
 # TODO: Add variable parsing for /mnt/apigee4/conf/apigee/setenv.sh
 #	Maybe use Shell.lns?
 #	Set/reset the JVM memory to buy slow leak time
@@ -14,7 +16,7 @@ class apigee::mgmt inherits apigee {
 #   file { 'apigee_opdk_license':
 #     owner  => "apigee",
 #     group  => "apigee",
-#     path   => "$my_conf_ms/license.txt",
+#     path   => "$my_conf/license.txt",
 #     ensure => file,
 #     mode   => '0777',
 #     source => "puppet:///modules/apigee/license.txt",
@@ -22,7 +24,7 @@ class apigee::mgmt inherits apigee {
 
 # Enable/Disable cassandra caching for API products, uses augeas
   $toggle_value = hiera('cass_row_caching')
-  $context_conf = "$my_conf_ms/keymanagement.properties"
+  $context_conf = "$my_conf/keymanagement.properties"
   augeas { "conf_keymanagement.properties":
     lens    => "Properties.lns",
     incl    => "$context_conf",
@@ -34,7 +36,7 @@ class apigee::mgmt inherits apigee {
 #
 # set /augeas/load/xml/lens "Xml.lns"
 # set /augeas/load/xml/incl "/mnt/apigee4/conf/apigee/management-server/logback.xml"
-  $context = "$my_conf_ms/logback.xml"
+  $context = "$my_conf/logback.xml"
 #  $urllog_value = '${data.dir:-..}/logs/urllog-%d{yyyy-MM-dd}.%i.log.gz'
 #  $startuperr_value = '${data.dir:-..}/logs/startupruntimeerrors-%d{yyyy-MM-dd}.%i.log.gz'
 #  $translog_value = '${data.dir:-..}/logs/transactions-%d{yyyy-MM-dd}.%i.log.gz'
@@ -63,4 +65,10 @@ class apigee::mgmt inherits apigee {
           "set configuration/root/#attribute/level $rootloglevel",
       ],
     }
+
+# Using a parameterized class. Takes in the location of the conf directory.
+# This handles keep-alives and other connection tuning
+  class { 'apigee::http_properties':
+    conf => "$my_conf",
+  }
 }

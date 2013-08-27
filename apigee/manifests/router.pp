@@ -4,11 +4,13 @@
 # should get their own classes, and then be included in here
 class apigee::router inherits apigee {
   include apigee::troubleshooting_utils
+
+  $my_conf = "$apigee_conf/router"
+
 # Change logging and log rotation settings, uses augeas
-#
 # set /augeas/load/xml/lens "Xml.lns"
 # set /augeas/load/xml/incl "/mnt/apigee4/conf/apigee/message-processor/logback.xml"
-  $context = "$my_conf_router/logback.xml"
+  $context = "$my_conf/logback.xml"
 #  $urllog_value = '${data.dir:-..}/logs/urllog-%d{yyyy-MM-dd}.%i.log.gz'
 #  $startuperr_value = '${data.dir:-..}/logs/startupruntimeerrors-%d{yyyy-MM-dd}.%i.log.gz'
 #  $translog_value = '${data.dir:-..}/logs/transactions-%d{yyyy-MM-dd}.%i.log.gz'
@@ -25,5 +27,11 @@ class apigee::router inherits apigee {
     changes => [
       "set configuration/root/#attribute/level $rootloglevel",
       ],
+  }
+
+# Using a parameterized class. Takes in the location of the conf directory.
+# This handles keep-alives and other connection tuning
+  class { 'apigee::http_properties':
+    conf => "$my_conf",
   }
 }

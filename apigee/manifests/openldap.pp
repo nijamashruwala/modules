@@ -1,10 +1,12 @@
 #/etc/puppetlabs/puppet/modules/apigee/manifests/openldap.pp
 # This is the class definition for openldap components.
 class apigee::openldap inherits apigee {
+  $my_conf = "$my_root_dir/conf/openldap"
+
 # Tune OpenLdap to reduce number of threads. Threadpool over number of CPUs
 # causes strange CPU spikes.
 # Create a symlink to the file because augeas doesn't handle filenames with '=' in them
-  $target_dir = "${my_conf_ldap}/slapd.d/"
+  $target_dir = "${my_conf}/slapd.d/"
   $target_file = 'cn=config.ldif'
   file { 'conf_openldap_slapd_config_link':
     path   => "${target_dir}config.ldif",
