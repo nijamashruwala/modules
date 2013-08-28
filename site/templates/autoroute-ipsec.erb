@@ -68,6 +68,29 @@ case "$1" in
 
     ;;
 
+  status)
+    running=0
+    if [ -f $pidf && "`pgrep -P 1 $name`" == "`cat $pidf`" ]; then
+        echo "$name (`cat $pidf`) is running"
+    else
+        echo "$name is stopped"
+        exit -1;
+    fi
+#    if [ -f $pidf ]; then
+#        pid=`cat $pidf`
+#        if [ "$pid" != "" ]; then
+#            ps -p $pid > /dev/null
+#            [ $? -eq 0 ] && running=1
+#        fi
+#    fi
+#    if [ $running -eq 1 ]; then
+#        echo "$name ($pid) is running"
+#    else
+#        echo "$name is stopped"
+#        exit -1
+#    fi
+    ;;
+
   stop)
     echo -n "`date` - Stopping $path/$name ... " | tee -a $log
 
@@ -97,6 +120,6 @@ case "$1" in
     ;;
 
   *)
-    echo "Usage: $0 {start|stop|restart}"
+    echo "Usage: $0 {start|stop|status|restart}"
     exit 1
 esac

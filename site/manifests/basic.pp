@@ -9,4 +9,12 @@ class site::basic {
     include users 
     include groups 
   }
+# Is DIY IPsec enabled?
+#  $autorouteipsec_enabled = hiera('autorouteipsec_enabled')
+#  notify {"autorouteipsec_enabled is $autorouteipsec_enabled":
+#    withpath => true,
+#  }
+#  if $autorouteipsec_enabled == 'true' {
+#    include autoroute-ipsec
+#  }
 }
