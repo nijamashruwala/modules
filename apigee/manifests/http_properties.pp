@@ -10,7 +10,8 @@ class apigee::http_properties ($conf) inherits apigee {
 # set HTTPServer.max.keepalive.clients -1
   $context = "$conf/http.properties"
   $keepalive_clients = "-1"
-  augeas { "http.properties":
+  $timeout_millis = "630000"
+  augeas { "http.properties_HTTPServer.max.keepalive.clients":
     lens    => "Properties.lns",
     incl    => "$context",
     context => "/files$context",
@@ -20,4 +21,14 @@ class apigee::http_properties ($conf) inherits apigee {
       ],
     onlyif => "get HTTPServer.max.keepalive.clients != $keepalive_clients",
     }
+  if $role == 'router' {
+#    notify { 'Running on a router': }
+    augeas { "http.properties_HTTPTransport.io.timeout.millis":
+      lens    => "Properties.lns",
+      incl    => "$context",
+      context => "/files$context",
+      changes => [ "set HTTPTransport.io.timeout.millis $timeout_millis" ],
+      onlyif  => "get HTTPTransport.io.timeout.millis != $timeout_millis",
+    }
+  }
 }
