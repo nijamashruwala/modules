@@ -2,8 +2,11 @@
 # This is for experimental code and should not be used except for development or
 # testing
 class apigee::labs inherits apigee {
-  include site::fix_yum_repos
-
+# exec { "update $key$delimiter$value $file":
+#        command => "sed --in-place='' --expression='s/^[[:space:]]*$key[[:space:]]*$delimiter.*$/$key$delimiter$value/g' $file",
+#        unless => "grep -xqe '$key$delimiter$value' -- $file",
+#        path => "/bin:/usr/bin:/usr/local/bin"
+#    }    
 #  service { 'apigee':
   # This defines software installed by the OPDK and how puppet should interact
   # with is. Eventually, OPDK definition could go somewhere here too.
