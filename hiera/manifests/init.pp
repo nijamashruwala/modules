@@ -3,17 +3,11 @@
 # Notes:
 #       Cribbed heavily from Apigee GOC
 #       May need to install the calling_module fact later
-#
-#class hiera(
-#  $hiera_yaml='/etc/puppet/hiera.yaml',
-#  $hiera_data="/etc/puppet/hieradata"
-#)
 
 class hiera(
   $hiera_yaml='/etc/puppetlabs/puppet/hiera.yaml',
-  $hiera_data="<%= ${derived_mnt_dir} %>/hiera/data"
+  $hiera_data="${derived_mnt_dir}/hiera/data"
 ) {
-# $hiera_data= <%= hiera('mnt_dir') %> # Or something like this
   File {
     owner => '0',
     group => '0',
@@ -25,12 +19,12 @@ class hiera(
 #    content => template('hiera/bin_hiera.erb'),
 #    mode    => '0755',
 #  }
-  file { $hiera_data:
+  file { "${hiera_data}":
     ensure => directory,
     owner  => 'pe-puppet',
     group  => 'pe-puppet',
   }
-  file { $hiera_yaml:
+  file { "${hiera_yaml}":
     ensure  => present,
     content => template('hiera/hiera.yaml.erb'),
   }
