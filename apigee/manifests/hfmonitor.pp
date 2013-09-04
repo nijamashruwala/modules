@@ -11,15 +11,10 @@ class apigee::hfmonitor inherits apigee {
 # Insert log collection
   exec { 'apigee_generic_start_io_redirect_on': 
 # sed --in-place='' --expression='s|^\(nohup .* com.apigee.kernel.MicroKernel\) \&$|& >/mnt/apigee4/var/log/apigee/stdout.log \&|' $file
-    command => "sed --in-place='' --expression='s|^\(${pattern}\) \(\&\)$|\1 ${appendstr} \2|' ${file}",
+    command => "sed --in-place='' --expression='s|^\(${pattern}\) \(\&\)|\1 ${appendstr} \2|' ${file}",
     unless  => "test -f /tmp/nohfmonitor && ! grep -e \"${appendstr}\" ${file}",
     path    => "/bin:/usr/bin:/usr/local/bin",
   }
-# exec { "update $key$delimiter$value $file":
-#        command => "sed --in-place='' --expression='s/^[[:space:]]*$key[[:space:]]*$delimiter.*$/$key$delimiter$value/g' $file",
-#        unless => "grep -xqe '$key$delimiter$value' -- $file",
-#        path => "/bin:/usr/bin:/usr/local/bin"
-#    }    
 # Remove log collection
   exec { 'apigee_generic_start_io_redirect_off':
     command => "sed --in-place='' --expression='s|${appendstr} ||' ${file}",
@@ -27,8 +22,8 @@ class apigee::hfmonitor inherits apigee {
     path    => "/bin:/usr/bin:/usr/local/bin",
   }
 
-#  notify { "hfmonitoring":
-#    withpath => "true",
-#    name     => "file is ${file} , appendstr is ${appendstr}",
-#  }
+  notify { "hfmonitoring":
+    withpath => "true",
+    name     => "file is ${file} , appendstr is ${appendstr} , pattern is ${pattern}",
+  }
 }
