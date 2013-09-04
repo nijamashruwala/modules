@@ -15,6 +15,14 @@ class apigee::cass inherits apigee {
     path    => "/bin:/usr/bin:/usr/local/bin",
     require => Package['jna'],
   }
+# Manage jna.jar
+  file { 'jna_jar':
+    owner   => 'apigee',
+    group   => 'apigee',
+    mode    => '0644',
+    path    => "$my_cass_lib/jna.jar",
+    require => Exec['cass_jna_jar_install'],
+  }
 # exec { "update $key$delimiter$value $file":
 #        command => "sed --in-place='' --expression='s/^[[:space:]]*$key[[:space:]]*$delimiter.*$/$key$delimiter$value/g' $file",
 #        unless => "grep -xqe '$key$delimiter$value' -- $file",
