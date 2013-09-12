@@ -16,7 +16,7 @@ if [ $max_open_files ]; then
     ulimit -n $max_open_files
 fi
 
-check_jvm
+create_jvm_argslist
 
 # Launching java
 <%-if @role.match(/mp|router|mgmt/)-%>
