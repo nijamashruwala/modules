@@ -6,6 +6,7 @@ class apigee::mp inherits apigee {
   include apigee::threadpool
   include apigee::mindapi
   include apigee::troubleshooting_utils
+  include apigee::share_apigee_bin_start
 
   $my_conf = "$apigee_conf/message-processor"
 
@@ -52,11 +53,5 @@ class apigee::mp inherits apigee {
 # This handles keep-alives and other connection tuning
   class { 'apigee::http_properties':
     conf => "$my_conf",
-  }
-
-# Using a parameterized class. Takes in the location of the conf file.
-# This handles jvm tuning
-  class { 'apigee::share_apigee_bin_start':
-    conf => '/mnt/apigee4/share/apigee/bin/start2',
   }
 }

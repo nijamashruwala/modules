@@ -4,6 +4,7 @@
 # should get their own classes, and then be included in here
 class apigee::mgmt inherits apigee {
   include apigee::openldap
+  include apigee::share_apigee_bin_start
 
   $my_conf = "$apigee_conf/management-server"
 # TODO: Add chunk for virtualized resource
@@ -66,11 +67,5 @@ class apigee::mgmt inherits apigee {
 # This handles keep-alives and other connection tuning
   class { 'apigee::http_properties':
     conf => "$my_conf",
-  }
-
-# Using a parameterized class. Takes in the location of the conf file.
-# This handles jvm tuning
-  class { 'apigee::share_apigee_bin_start':
-    conf => '/mnt/apigee4/share/apigee/bin/start2',
   }
 }
