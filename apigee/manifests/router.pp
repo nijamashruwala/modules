@@ -34,4 +34,10 @@ class apigee::router inherits apigee {
   class { 'apigee::http_properties':
     conf => "$my_conf",
   }
+
+# Using a parameterized class. Takes in the location of the conf file.
+# This handles jvm tuning
+  class { 'apigee::share_apigee_bin_start':
+    conf => '/mnt/apigee4/share/apigee/bin/start2',
+  }
 }

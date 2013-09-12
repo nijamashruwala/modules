@@ -6,10 +6,6 @@ class apigee::mgmt inherits apigee {
   include apigee::openldap
 
   $my_conf = "$apigee_conf/management-server"
-# TODO: Add variable parsing for /mnt/apigee4/conf/apigee/setenv.sh
-#	Maybe use Shell.lns?
-#	Set/reset the JVM memory to buy slow leak time
-#
 # TODO: Add chunk for virtualized resource
 #	License file needs to exist in two places, /root/license.txt and $my_conf_ms/license.txt
 #
@@ -70,5 +66,11 @@ class apigee::mgmt inherits apigee {
 # This handles keep-alives and other connection tuning
   class { 'apigee::http_properties':
     conf => "$my_conf",
+  }
+
+# Using a parameterized class. Takes in the location of the conf file.
+# This handles jvm tuning
+  class { 'apigee::share_apigee_bin_start':
+    conf => '/mnt/apigee4/share/apigee/bin/start2',
   }
 }
