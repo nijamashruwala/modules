@@ -20,8 +20,8 @@ create_jvm_argslist
 
 # Launching java
 <%-if @role.match(/mp|router|mgmt/)-%>
-nohup $JAVA -classpath "$classpath" -Xms$min_mem -Xmx$max_mem -XX:MaxPermSize=$max_permsize -Dcom.sun.management.jmxremote -Dinstallation.dir=$install_dir $sys_props -Dconf.dir=$conf_path -Ddata.dir=$data_dir $* com.apigee.kernel.MicroKernel &
-#nohup $JAVA -classpath "$classpath" -server –d64 -Xms3g -Xmx3g -XX:PermSize=800m -XX:MaxPermSize=800m -XX:NewSize=1g -XX:MaxNewSize=1g -XX:SrvivorRatio=8 -XX:+DisableExplicitGC -verbose:gc -XX:+UseParNewGC -XX:+CMSParallelRemarkEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:-UseBiasedLocking -XX:ParallelGCThreads=12 -XX:LargePageSizeInBytes=128m -Dcom.sun.management.jmxremote -Dinstallation.dir=$install_dir $sys_props -Dconf.dir=$conf_path -Ddata.dir=$data_dir $* com.apigee.kernel.MicroKernel &
+#nohup $JAVA -classpath "$classpath" -Xms$min_mem -Xmx$max_mem -XX:MaxPermSize=$max_permsize -Dcom.sun.management.jmxremote -Dinstallation.dir=$install_dir $sys_props -Dconf.dir=$conf_path -Ddata.dir=$data_dir $* com.apigee.kernel.MicroKernel &
+nohup $JAVA -classpath "$classpath" -server  -Xms3g -Xmx3g -XX:PermSize=800m -XX:MaxPermSize=800m -XX:NewSize=1g -XX:MaxNewSize=1g -XX:SurvivorRatio=8 -XX:+DisableExplicitGC -verbose:gc -XX:+UseParNewGC -XX:+CMSParallelRemarkEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:-UseBiasedLocking -XX:ParallelGCThreads=12 -XX:LargePageSizeInBytes=128m -Dcom.sun.management.jmxremote -Dinstallation.dir=$install_dir $sys_props -Dconf.dir=$conf_path -Ddata.dir=$data_dir $* com.apigee.kernel.MicroKernel &
 <%-else-%>
 nohup $JAVA -classpath "$classpath" -Xms$min_mem -Xmx$max_mem -XX:MaxPermSize=$max_permsize -Dcom.sun.management.jmxremote -Dinstallation.dir=$install_dir $sys_props -Dconf.dir=$conf_path -Ddata.dir=$data_dir $* com.apigee.kernel.MicroKernel &
 <%-end-%>
